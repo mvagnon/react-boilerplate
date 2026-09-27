@@ -6,8 +6,12 @@
     "build": "react-router build",
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
+    "test": "vitest run",
+    "lint": "eslint . --max-warnings 0",
+    "lint:fix": "eslint . --fix --max-warnings 0",
     "typecheck": "react-router typegen && tsc",
-    "knip": "knip"
+    "knip": "knip",
+    "staticchecks": "bun run lint && bun run typecheck && bun run knip && bun run test"
   },
   "dependencies": {
     "@react-router/node": "^8.4.0",
@@ -18,14 +22,14 @@
     "react-router": "^8.4.0"
   },
   "devDependencies": {
-    "@eslint/js": "^10.0.1",
+    "@eslint/js": "^9.39.0",
     "@eslint/json": "^2.1.0",
     "@react-router/dev": "^8.4.0",
     "@tailwindcss/vite": "^4.2.2",
     "@types/node": "^26.6.3",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
-    "eslint": "^10.11.0",
+    "eslint": "^9.39.0",
     "eslint-plugin-react": "^7.37.5",
     "globals": "^17.12.0",
     "knip": "^6.38.0",
@@ -34,7 +38,7 @@
     "pretty-quick": "^4.2.2",
     "simple-git-hooks": "^2.14.0",
     "tailwindcss": "^4.2.2",
-    "typescript": "^7.0.2",
+    "typescript": "~6.0.2",
     "typescript-eslint": "^8.70.1",
     "vite": "^8.0.3",
     "vitest": "^5.0.2"

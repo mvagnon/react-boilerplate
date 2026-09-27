@@ -13,12 +13,14 @@ App available at `http://localhost:5173`.
 
 ## Commands
 
-| Command             | Purpose                    |
-| ------------------- | -------------------------- |
-| `bun run build`     | Build for production       |
-| `bun run start`     | Serve the production build |
-| `bun run typecheck` | Check TypeScript types     |
-| `bunx orval`        | Generate the API client    |
+| Command                | Purpose                             |
+| ---------------------- | ----------------------------------- |
+| `bun run build`        | Build for production                |
+| `bun run start`        | Serve the production build          |
+| `bun run typecheck`    | Check TypeScript types              |
+| `bun run test`         | Run Vitest tests in `tests/`        |
+| `bun run staticchecks` | Run lint, typecheck, Knip and tests |
+| `bunx orval`           | Generate the API client             |
 
 ## Environment variables
 

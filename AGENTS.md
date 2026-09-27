@@ -26,8 +26,11 @@ src/
 └── main.tsx          # Application entry point
 index.html
 package.json
+tests/               # Vitest tests
 ```
 
 ## Files Naming Conventions
+
+- Keep tests in the root `tests/` directory, named `*.test.ts`.
 
 ## Other Rules
