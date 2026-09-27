@@ -32,7 +32,8 @@
 Ask your agent:
 
 ```text
-Use `mvagnon/react-boilerplate` as a reference to adopt CI, quality scripts and Git hooks in this project. Follow its README's "Setup for an existing project" instructions using `gh`.
+Use `mvagnon/react-boilerplate` as a reference to adopt CI, quality scripts and Git hooks in this project.
+Follow its README's "Setup for an existing project" instructions using `gh`.
 ```
 
 Agent instructions:
