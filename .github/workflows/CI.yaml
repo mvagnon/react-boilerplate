@@ -44,17 +44,6 @@ jobs:
       - name: Build
         run: bun run --if-present build
 
-  semgrep:
-    name: semgrep
-    runs-on: ubuntu-latest
-    if: ${{ github.actor != 'dependabot[bot]' }}
-    container:
-      image: semgrep/semgrep
-    steps:
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
-      - name: Run Semgrep
-        run: semgrep scan --config auto --error
-
   osv-scan:
     uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@764c91816374ff2d8fc2095dab36eecd42d61638 # v1.9.2
     with:

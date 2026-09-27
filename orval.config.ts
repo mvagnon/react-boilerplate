@@ -6,7 +6,9 @@ export default {
       target: process.env.OPENAPI_URL ?? "http://localhost:3000/openapi.json",
     },
     output: {
-      target: "./src/api/generated.ts",
+      target: "./app/api/generated.ts",
+      schemas: "./app/api/models",
+      mode: "tags-split",
       client: "react-query",
       httpClient: "fetch",
       formatter: "prettier",
