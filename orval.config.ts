@@ -1,6 +1,6 @@
-import { defineConfig } from "orval";
+import type { ConfigExternal } from "orval";
 
-export default defineConfig({
+export default {
   api: {
     input: {
       target: process.env.OPENAPI_URL ?? "http://localhost:3000/openapi.json",
@@ -9,6 +9,7 @@ export default defineConfig({
       target: "./src/api/generated.ts",
       client: "react-query",
       httpClient: "fetch",
+      formatter: "prettier",
     },
   },
-});
+} satisfies ConfigExternal;

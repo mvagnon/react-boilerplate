@@ -1,36 +1,44 @@
 # Project Instructions
 
-## Purpose
-
-This file defines the project's architecture, code organization, and implementation conventions. Infer the project architecture from these instructions and follow them when making changes.
-
-If architecture instructions are missing, incomplete, ambiguous, or insufficient for the requested change, infer from the current implementation and ask the user for confirmation.
-
-If the codebase conflicts with documented architecture or design instructions, prioritize the documented instructions and report the conflict to the user.
-
 ## Architecture
 
+Use lightweight, feature-oriented hexagonal architecture. This layout describes responsibilities, not a file inventory. Create directories only when needed; update this document only when architectural boundaries change.
+
 ```text
-public/
+app/                         # Application shell, providers, routing and global styles
+public/                      # Static assets
 src/
-├── assets/           # Images, icons, and fonts
-├── components/       # Shared UI components
-├── features/         # Feature-specific components, hooks, and logic
-├── hooks/            # Shared React hooks
-├── pages/            # Route-level components
-├── services/         # API clients and integrations
-├── styles/           # Global styles and theme
-├── types/            # Shared TypeScript types
-├── utils/            # Shared utility functions
-├── App.tsx           # Root component and routing
-└── main.tsx          # Application entry point
-index.html
-package.json
-tests/               # Vitest tests
+├── api/                     # Orval-generated HTTP functions, query hooks and API types
+├── components/              # Shared presentational UI
+└── features/
+    └── <feature>/
+        ├── domain/          # Business types and pure business rules
+        ├── application/     # Use cases and the ports they require
+        ├── adapters/        # API adapters and DTO-to-domain mapping
+        └── ui/              # Feature presentation and orchestration
+tests/                       # Vitest tests
 ```
 
-## Files Naming Conventions
+### Rules
 
+- Default to generated Orval hooks, HTTP functions and API types. A feature may contain only `ui/`; containers can use generated hooks directly.
+- Add `domain/`, `application/` and `adapters/` only for actual frontend business behavior. The generated client already provides the HTTP adapter.
+- Do not duplicate API types or add pass-through adapters to satisfy the folder structure. Define domain types only for actual business concepts.
+- `domain/` has no React, router, TanStack Query, HTTP or generated API imports.
+- `application/` depends only on the domain and defines required ports. Pass implementations as function arguments; no DI framework.
+- `adapters/` implements those ports with generated HTTP functions and maps API data to domain concepts when needed.
+- `ui/` wires use cases and adapters. Routes compose containers, which pass data and state to presentational components.
+- Generated hooks stay in `src/api/`. Custom hooks belong in `ui/` only for meaningful behavior or orchestration; no mandatory `hooks/` layer or systematic wrappers.
+
+## API generation
+
+- The backend's OpenAPI endpoint is the sole source of truth; do not store a schema copy.
+- `bun run api:sync` uses `OPENAPI_URL` and `orval.config.ts` to generate `src/api/generated.ts` (HTTP functions, query hooks and API types). Never hand-edit it.
+- Sync requires backend access and stays separate from `staticchecks`. Run `staticchecks` after syncing.
+
+## Conventions and validation
+
+- `~/*` resolves to `app/*`, not `src/*`.
 - Keep tests in the root `tests/` directory, named `*.test.ts`.
-
-## Other Rules
+- During diff-check, run `bun run staticchecks` after implementation changes.
+- For broad or risky changes, run `act -W .github/workflows/CI.yaml --container-architecture linux/amd64 --action-offline-mode`.
