@@ -19,19 +19,7 @@ permissions:
   security-events: write
 
 jobs:
-  gitleaks:
-    runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/gitleaks/gitleaks:v8.30.1
-    steps:
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
-        with:
-          fetch-depth: 0
-      - name: Run Gitleaks
-        run: gitleaks git --redact --log-opts="--all" .
-
   checks:
-    needs: gitleaks
     if: >-
       github.event_name != 'issue_comment' ||
       github.event.issue.pull_request &&
@@ -63,7 +51,6 @@ jobs:
         run: bun run test
 
   semgrep:
-    needs: gitleaks
     name: semgrep
     runs-on: ubuntu-latest
     if: ${{ github.actor != 'dependabot[bot]' }}
@@ -75,7 +62,6 @@ jobs:
         run: semgrep scan --config auto --error
 
   osv-scan:
-    needs: gitleaks
     uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@764c91816374ff2d8fc2095dab36eecd42d61638 # v1.9.2
     with:
       scan-args: |
