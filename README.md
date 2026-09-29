@@ -43,7 +43,8 @@ Agent instructions:
 3. Briefly explain the changes, then merge the configuration without duplicates. Adapt commands and paths to the project.
 4. In `package.json`, install missing dependencies needed by those modules and update existing ones to at least the boilerplate's versions. Prefer the latest stable releases; never downgrade. Use the project's package manager and update its lockfile.
 5. For API generation, adapt `orval.config.ts` to the backend's OpenAPI URL and the project's structure and client needs.
-6. Run the affected checks (and build if relevant). Report the changes, results and source SHA.
+6. For Docker, adapt the multi-stage build to the target project's package manager and lockfile, keep only production dependencies in the final image, and exclude `.git` via `.dockerignore`. Set `SKIP_INSTALL_SIMPLE_GIT_HOOKS=1` during dependency installation to skip Git hook setup.
+7. Run the affected checks (and build if relevant). Report the changes, results and source SHA.
 
 | Module          | Source files                                                                       |
 | --------------- | ---------------------------------------------------------------------------------- |
@@ -51,3 +52,4 @@ Agent instructions:
 | Quality scripts | `package.json`, `eslint.config.ts`, `knip.json`, `tsconfig.json`, `vite.config.ts` |
 | Git hooks       | `.simple-git-hooks.json`, `package.json`                                           |
 | API generation  | `orval.config.ts`, `package.json`                                                  |
+| Docker          | `Dockerfile`, `.dockerignore`                                                      |
