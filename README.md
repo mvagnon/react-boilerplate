@@ -38,11 +38,12 @@ Follow its README's "Setup for an existing project" instructions using `gh`.
 
 Agent instructions:
 
-1. Use `gh` to resolve the requested ref (default: the repository's default branch) to a commit SHA. Read this README and all source files remotely at that SHA; do not rely on a local clone.
-2. Inspect the target project's instructions, stack, package manager and existing configuration. Adopt only the requested modules using the sources below.
-3. Explain the proposed changes, then merge into existing configuration. Preserve project conventions and adapt framework-specific commands, paths and dependencies.
-4. If adopting API generation: Orval generates TypeScript types, HTTP functions and TanStack Query hooks from the backend's OpenAPI specification. Adapt `orval.config.ts` to the target project: input URL, output paths (`target`, `schemas`), grouping (`mode`) and client settings. Do not assume `app/api/` exists or fits its structure.
-5. Run the affected checks and build when relevant. Report changes, validation results and the source SHA. Reapplying the setup must not introduce duplicates or unnecessary changes.
+1. Use `gh` to read this README and the relevant files at the requested ref (default: default branch). Record the commit SHA.
+2. Follow the target project's instructions and conventions. Apply only the requested modules from the table below.
+3. Briefly explain the changes, then merge the configuration without duplicates. Adapt commands and paths to the project.
+4. In `package.json`, install missing dependencies needed by those modules and update existing ones to at least the boilerplate's versions. Prefer the latest stable releases; never downgrade. Use the project's package manager and update its lockfile.
+5. For API generation, adapt `orval.config.ts` to the backend's OpenAPI URL and the project's structure and client needs.
+6. Run the affected checks (and build if relevant). Report the changes, results and source SHA.
 
 | Module          | Source files                                                                       |
 | --------------- | ---------------------------------------------------------------------------------- |
