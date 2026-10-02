@@ -28,10 +28,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Set up Bun
-        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
         with:
           bun-version: latest
 
@@ -48,9 +48,9 @@ jobs:
         run: bun run build-storybook
 
   osv-scan:
-    uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@764c91816374ff2d8fc2095dab36eecd42d61638 # v1.9.2
+    uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@a345acffa64b0eaede81a3d9aae6141214d9c8fc # v2.6.0
     with:
       upload-sarif: false
       scan-args: |
-        --include-git-root
+        --recursive
         ./
