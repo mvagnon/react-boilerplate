@@ -5,19 +5,21 @@
 
 ## Commands
 
-| Command                | Purpose                                |
-| ---------------------- | -------------------------------------- |
-| `bun install`          | Install dependencies                   |
-| `bun run dev`          | Start the development server           |
-| `bun run build`        | Build for production                   |
-| `bun run start`        | Serve the production build             |
-| `bun run lint`         | Check lint rules; warnings fail        |
-| `bun run lint:fix`     | Apply automatic lint fixes             |
-| `bun run api:sync`     | Regenerate the client from the backend |
-| `bun run typecheck`    | Check TypeScript types                 |
-| `bun run test`         | Run Vitest tests in `tests/`           |
-| `bun run knip`         | Find unused code and dependencies      |
-| `bun run staticchecks` | Run lint, typecheck, Knip and tests    |
+| Command                   | Purpose                                |
+| ------------------------- | -------------------------------------- |
+| `bun install`             | Install dependencies                   |
+| `bun run dev`             | Start the development server           |
+| `bun run build`           | Build for production                   |
+| `bun run start`           | Serve the production build             |
+| `bun run lint`            | Check lint rules; warnings fail        |
+| `bun run lint:fix`        | Apply automatic lint fixes             |
+| `bun run api:sync`        | Regenerate the client from the backend |
+| `bun run typecheck`       | Check TypeScript types                 |
+| `bun run test`            | Run Vitest tests in `tests/`           |
+| `bun run storybook`       | Start Storybook on port 6006           |
+| `bun run build-storybook` | Build the static component workshop    |
+| `bun run knip`            | Find unused code and dependencies      |
+| `bun run staticchecks`    | Run lint, typecheck, Knip and tests    |
 
 ## Env variables
 
@@ -26,6 +28,13 @@
 | `OPENAPI_URL` | Backend OpenAPI URL for `api:sync` | `http://localhost:3000/openapi.json` |
 
 `api:sync` requires backend access. Never edit generated files; run `staticchecks` after syncing.
+
+## Storybook
+
+- Colocate `*.stories.tsx` with components in `app/components/` or `app/features/<feature>/ui/`.
+- Stories use the application's Tailwind styles and `~/*` aliases. Use deterministic props rather than a live backend; add providers only where needed.
+- `bun run test` runs only `tests/**/*.test.ts` in Node. Stories are not included in automated tests; no browser runner is installed.
+- Use Storybook's accessibility panel to inspect components. CI runs lightweight tests and builds the workshop, without browser tests.
 
 ## Setup for an existing project
 
@@ -46,10 +55,13 @@ Agent instructions:
 6. For Docker, adapt the multi-stage build to the target project's package manager and lockfile, keep only production dependencies in the final image, and exclude `.git` via `.dockerignore`. Set `SKIP_INSTALL_SIMPLE_GIT_HOOKS=1` during dependency installation to skip Git hook setup.
 7. Run the affected checks (and build if relevant). Report the changes, results and source SHA.
 
-| Module          | Source files                                                                       |
-| --------------- | ---------------------------------------------------------------------------------- |
-| CI              | `.github/workflows/CI.yaml`, `package.json`                                        |
-| Quality scripts | `package.json`, `eslint.config.ts`, `knip.json`, `tsconfig.json`, `vite.config.ts` |
-| Git hooks       | `.simple-git-hooks.json`, `package.json`                                           |
-| API generation  | `orval.config.ts`, `package.json`                                                  |
-| Docker          | `Dockerfile`, `.dockerignore`                                                      |
+For quality-only adoption without Storybook, omit its ESLint preset and CI build step.
+
+| Module          | Source files                                                                                                             |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| CI              | `.github/workflows/CI.yaml`, `package.json`                                                                              |
+| Quality scripts | `package.json`, `eslint.config.ts`, `knip.json`, `tsconfig.json`, `vite.config.ts`, `vite.shared.ts`, `vitest.config.ts` |
+| Git hooks       | `.simple-git-hooks.json`, `package.json`                                                                                 |
+| API generation  | `orval.config.ts`, `package.json`                                                                                        |
+| Storybook       | `.storybook/`, `vite.shared.ts`, `package.json`                                                                          |
+| Docker          | `Dockerfile`, `.dockerignore`                                                                                            |

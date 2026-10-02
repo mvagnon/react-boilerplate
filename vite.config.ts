@@ -1,10 +1,8 @@
 import { reactRouter } from "@react-router/dev/vite";
-import tailwindcss from "@tailwindcss/vite";
-import { defineConfig } from "vite";
+import { defineConfig, mergeConfig } from "vite";
+import sharedConfig from "./vite.shared.ts";
 
-export default defineConfig({
-  plugins: [tailwindcss(), reactRouter()],
-  resolve: {
-    tsconfigPaths: true,
-  },
-});
+export default mergeConfig(
+  sharedConfig,
+  defineConfig({ plugins: [reactRouter()] }),
+);
