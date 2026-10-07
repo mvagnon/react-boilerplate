@@ -3,18 +3,18 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "react-router build",
+    "api:sync": "orval",
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
-    "test": "vitest run",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --fix --max-warnings 0",
-    "api:sync": "orval",
     "typecheck": "react-router typegen && tsc",
     "knip": "knip",
+    "test": "vitest run",
     "staticchecks": "bun run lint && bun run typecheck && bun run knip && bun run test",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build": "react-router build"
   },
   "dependencies": {
     "@react-router/node": "^8.4.0",

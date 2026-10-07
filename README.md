@@ -8,18 +8,18 @@
 | Command                   | Purpose                                |
 | ------------------------- | -------------------------------------- |
 | `bun install`             | Install dependencies                   |
-| `bun run dev`             | Start the development server           |
-| `bun run build`           | Build for production                   |
-| `bun run start`           | Serve the production build             |
-| `bun run lint`            | Check lint rules; warnings fail        |
-| `bun run lint:fix`        | Apply automatic lint fixes             |
 | `bun run api:sync`        | Regenerate the client from the backend |
-| `bun run typecheck`       | Check TypeScript types                 |
-| `bun run test`            | Run Vitest tests in `tests/`           |
+| `bun run dev`             | Start the development server           |
+| `bun run start`           | Serve the production build             |
 | `bun run storybook`       | Start Storybook on port 6006           |
 | `bun run build-storybook` | Build the static component workshop    |
+| `bun run lint`            | Check lint rules; warnings fail        |
+| `bun run lint:fix`        | Apply automatic lint fixes             |
+| `bun run typecheck`       | Check TypeScript types                 |
 | `bun run knip`            | Find unused code and dependencies      |
+| `bun run test`            | Run Vitest tests in `tests/`           |
 | `bun run staticchecks`    | Run lint, typecheck, Knip and tests    |
+| `bun run build`           | Build for production                   |
 
 ## Env variables
 
