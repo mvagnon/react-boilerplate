@@ -3,6 +3,10 @@
 
 # React Boilerplate
 
+## More technical info
+
+See [AGENTS.md](./AGENTS.md) for architecture, roadmap, API generation and Storybook guidelines, for both contributors and agents.
+
 ## Commands
 
 | Command                   | Purpose                                |
