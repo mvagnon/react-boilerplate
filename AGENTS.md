@@ -20,38 +20,20 @@ public/                      # Static assets
 tests/                       # Node-based Vitest unit and focused integration tests
 ```
 
-### Rules
+## Roadmap
 
-- Default to generated Orval hooks, HTTP functions and API types. A feature may contain only `ui/`; containers can use generated hooks directly.
-- Add `domain/`, `application/` and `adapters/` only for actual frontend business behavior. The generated client already provides the HTTP adapter.
-- Do not duplicate API types or add pass-through adapters to satisfy the folder structure. Define domain types only for actual business concepts.
-- `domain/` has no React, router, TanStack Query, HTTP or generated API imports.
-- `application/` depends only on the domain and defines required ports. Pass implementations as function arguments; no DI framework.
-- `adapters/` implements those ports with generated HTTP functions and maps API data to domain concepts when needed.
-- `ui/` wires use cases and adapters. Routes compose containers, which pass data and state to presentational components.
-- Generated hooks stay in `app/api/`. Custom hooks belong in `ui/` only for meaningful behavior or orchestration; no mandatory `hooks/` layer or systematic wrappers.
+Project management URL: [GitHub](https://github.com/mvagnon/react-boilerplate/issues)
 
-## API generation
+Consult it with the dedicated tool (`gh` CLI or appropriate MCP, etc.) to understand the project and make decisions that account for upcoming changes.
 
-- The backend's OpenAPI endpoint is the sole source of truth; do not store a schema copy.
-- `bun run api:sync` uses `OPENAPI_URL` and `orval.config.ts` to generate HTTP functions and query hooks by OpenAPI tag under `app/api/` (`tags-split`), with API types in `app/api/models/`. Never hand-edit generated files.
-- Sync requires backend access and stays separate from `staticchecks`. Run `staticchecks` after syncing.
+## Orval
+
+Generates API functions, query hooks and types in `app/api/` from the backend's OpenAPI endpoint. Set `OPENAPI_URL` and run `bun run api:sync`; reuse the generated client and never edit it manually.
 
 ## Storybook
 
-- Keep `*.stories.tsx` and optional MDX documentation next to their components in `app/components/` or `app/features/<feature>/ui/`. Do not create a separate component implementation or a root `stories/` directory.
-- Prefer stories for presentational components. Cover meaningful variants and applicable loading, error, empty and populated states with deterministic props; do not call a live backend.
-- Use typed CSF stories with `satisfies Meta<typeof Component>` and `StoryObj<typeof meta>`. Enable `autodocs` for reusable components; use `fn()` from `storybook/test` for callback spies.
-- Optional `play` functions demonstrate meaningful interactions inside Storybook; they are not part of `bun run test`.
-- Import application CSS in `.storybook/preview.ts`. `vite.shared.ts` supplies Tailwind and TypeScript aliases to the app, Storybook and Vitest without the React Router application plugin.
-- Add router or query providers only to stories that need them. Isolate state per story; never reuse the application's QueryClient or import route modules with generated route types into stories.
-- Use the accessibility addon to inspect stories in the workshop. Storybook is for UI development and documentation, not an automated browser-test suite.
-- `bun run storybook` starts the workshop; `bun run build-storybook` builds it. Do not add Playwright, browser runners or automated Storybook tests unless explicitly requested.
+UI development and documentation workshop. Keep `*.stories.tsx` next to components and cover their meaningful states with fixed data, without a live backend. Run `bun run storybook` to open it or `bun run build-storybook` to build it.
 
-## Conventions and validation
+Every component creation, update or deletion must include the corresponding story creation, update or deletion.
 
-- Keep application code under `app/`; `~/*` resolves to `app/*`.
-- Keep unit and focused integration tests in the root `tests/` directory, named `*.test.ts`. UI stories remain colocated with components.
-- `bun run test` runs only `tests/**/*.test.ts` in Node, without a browser or Storybook stories. Prefer lightweight unit and focused integration tests. CI runs `staticchecks` and builds the app and Storybook.
-- During diff-check, run `bun run staticchecks` after implementation changes.
-- For broad or risky changes, run `act -W .github/workflows/CI.yaml --container-architecture linux/amd64 --action-offline-mode`.
+Consult [Storybook documentation on Context7](https://context7.com/storybookjs/storybook) (`/storybookjs/storybook`) for well-structured, testable stories. Use typed CSF (`satisfies Meta`, `StoryObj`), cover all applicable variants and states through `args`, and use `fn()` callback spies and `play` functions for meaningful interactions.

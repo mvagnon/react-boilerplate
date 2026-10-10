@@ -29,13 +29,6 @@
 
 `api:sync` requires backend access. Never edit generated files; run `staticchecks` after syncing.
 
-## Storybook
-
-- Colocate `*.stories.tsx` with components in `app/components/` or `app/features/<feature>/ui/`.
-- Stories use the application's Tailwind styles and `~/*` aliases. Use deterministic props rather than a live backend; add providers only where needed.
-- `bun run test` runs only `tests/**/*.test.ts` in Node. Stories are not included in automated tests; no browser runner is installed.
-- Use Storybook's accessibility panel to inspect components. CI runs lightweight tests and builds the workshop, without browser tests.
-
 ## Setup for an existing project
 
 Ask your agent:
