@@ -34,6 +34,6 @@ Generates API functions, query hooks and types in `app/api/` from the backend's 
 
 UI development and documentation workshop. Keep `*.stories.tsx` next to components and cover their meaningful states with fixed data, without a live backend. Run `bun run storybook` to open it or `bun run build-storybook` to build it.
 
-Every component creation, update or deletion must include the corresponding story creation, update or deletion.
+Only presentational components require corresponding story creation, updates or deletion when they change. Non-visual components and highly specialized, niche components do not require stories.
 
 Consult [Storybook documentation on Context7](https://context7.com/storybookjs/storybook) (`/storybookjs/storybook`) for well-structured, testable stories. Use typed CSF (`satisfies Meta`, `StoryObj`), cover all applicable variants and states through `args`, and use `fn()` callback spies and `play` functions for meaningful interactions.
