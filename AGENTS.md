@@ -34,6 +34,8 @@ Generates API functions, query hooks and types in `app/api/` from the backend's 
 
 UI development and documentation workshop. Keep `*.stories.tsx` next to components and cover their meaningful states with fixed data, without a live backend. Run `bun run storybook` to open it or `bun run build-storybook` to build it.
 
-Only presentational components require corresponding story creation, updates or deletion when they change. Non-visual components and highly specialized, niche components do not require stories.
+Stories are **mandatory for every purely presentational leaf component** at the end of the component tree: components that receive their data and callbacks through props, without fetching data, accessing global state or contexts, or orchestrating business logic. Create their stories when adding them, keep those stories up to date whenever their props, variants, states or visual behavior change, and delete their stories when removing them. Specialized or niche leaf components are not exempt.
+
+Functional components responsible for data fetching, state management, business logic or orchestration (such as containers, providers and route components) do not require stories. “Functional” here refers to responsibility, not React function-component syntax.
 
 Consult [Storybook documentation on Context7](https://context7.com/storybookjs/storybook) (`/storybookjs/storybook`) for well-structured, testable stories. Use typed CSF (`satisfies Meta`, `StoryObj`), cover all applicable variants and states through `args`, and use `fn()` callback spies and `play` functions for meaningful interactions.
