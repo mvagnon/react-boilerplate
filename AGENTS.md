@@ -32,10 +32,19 @@ Generates API functions, query hooks and types in `app/api/` from the backend's 
 
 ## Storybook
 
-UI development and documentation workshop. Keep `*.stories.tsx` next to components and cover their meaningful states with fixed data, without a live backend. Run `bun run storybook` to open it or `bun run build-storybook` to build it.
+Storybook is an interactive UI workshop, not an exhaustive component inventory.
 
-Stories are **mandatory for every purely presentational leaf component** at the end of the component tree: components that receive their data and callbacks through props, without fetching data, accessing global state or contexts, or orchestrating business logic. Create their stories when adding them, keep those stories up to date whenever their props, variants, states or visual behavior change, and delete their stories when removing them. Specialized or niche leaf components are not exempt.
+Create stories only for components whose appearance or behavior benefits from standalone exploration: controls, cards, dialogs, navigation, and meaningful UI compositions. Being a leaf component is neither required nor sufficient.
 
-Functional components responsible for data fetching, state management, business logic or orchestration (such as containers, providers and route components) do not require stories. “Functional” here refers to responsibility, not React function-component syntax.
+Skip implementation details such as providers, technical wrappers, and transition primitives; demonstrate them through consuming components instead.
 
-Consult [Storybook documentation on Context7](https://context7.com/storybookjs/storybook) (`/storybookjs/storybook`) for well-structured, testable stories. Use typed CSF (`satisfies Meta`, `StoryObj`), cover all applicable variants and states through `args`, and use `fn()` callback spies and `play` functions for meaningful interactions.
+- Provide a customizable playground using `args` and Controls for meaningful public inputs: content, variants, sizes, states, and behavior.
+- Configure `argTypes` when needed for clear, usable controls.
+- Use realistic, deterministic data without a live backend.
+- Cover distinct, useful states—not every possible prop combination.
+- Keep interactions functional; use `fn()` for callbacks and `play` for meaningful interaction checks.
+- Colocate `*.stories.tsx`, use typed CSF (`satisfies Meta`, `StoryObj`), and keep stories aligned with component changes and removals.
+- Do not change production architecture just to accommodate stories.
+
+Consult [Storybook documentation on Context7](https://context7.com/storybookjs/storybook) (`/storybookjs/storybook`).
+Run `bun run storybook` or `bun run build-storybook`.
