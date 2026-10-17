@@ -1,11 +1,11 @@
 [![portfolio](https://img.shields.io/website?url=https%3A%2F%2Fmvagnon.dev&up_message=Visit&label=Portfolio&color=%23007fff)](https://mvagnon.dev)
-[![bymeacoffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-Support-yellow?logo=buymeacoffee)](https://buymeacoffee.com/mvagnon)
+[![buymeacoffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-Support-yellow?logo=buymeacoffee)](https://buymeacoffee.com/mvagnon)
 
 # React Boilerplate
 
-## More technical info
+## Reference
 
-See [AGENTS.md](./AGENTS.md) for architecture, roadmap, API generation and Storybook guidelines, for both contributors and agents.
+See [AGENTS.md](./AGENTS.md) for coding guidelines.
 
 ## Commands
 
@@ -38,27 +38,24 @@ See [AGENTS.md](./AGENTS.md) for architecture, roadmap, API generation and Story
 Ask your agent:
 
 ```text
-Use `mvagnon/react-boilerplate` as a reference to adopt CI, quality scripts and Git hooks in this project.
-Follow its README's "Setup for an existing project" instructions using `gh`.
+Use `mvagnon/react-boilerplate` as a reference to adopt boilerplate's conventions, structure, stack, CI/CD, quality scripts, `git` hooks, etc.
+Follow its README's "Agent instructions" using `gh` CLI or GitHub MCP.
 ```
 
 Agent instructions:
 
-1. Use `gh` to read this README, the boilerplate's `AGENTS.md` and the relevant files at the requested ref (default: default branch). Record the commit SHA.
-2. Before making changes, read the target project's applicable `AGENTS.md` files. Its instructions and conventions take precedence over the boilerplate's. Apply only the requested modules from the table below.
-3. Briefly explain the changes, then merge the configuration without duplicates. Adapt commands and paths to the project.
-4. In `package.json`, install missing dependencies needed by those modules and update existing ones to at least the boilerplate's versions. Prefer the latest stable releases; never downgrade. Use the project's package manager and update its lockfile.
-5. For API generation, adapt `orval.config.ts` to the backend's OpenAPI URL and the project's structure and client needs.
-6. For Docker, adapt the multi-stage build to the target project's package manager and lockfile, keep only production dependencies in the final image, and exclude `.git` via `.dockerignore`. Set `SKIP_INSTALL_SIMPLE_GIT_HOOKS=1` during dependency installation to skip Git hook setup.
-7. Run the affected checks (and build if relevant). Report the changes, results and source SHA.
+1. Read the boilerplate at the requested ref (default: default branch) using `gh` or GitHub MCP; record its commit SHA. Read the target project too; its `AGENTS.md` and conventions take precedence.
+2. Present the available features grouped by the categories below. Explicitly ask what to apply and what to exclude in each category. Wait for the user's answer before making changes.
+3. Implement only the approved selection, adapting to the target project without duplicates. Use its package manager, update its lockfile, and never downgrade dependencies.
+4. Run the affected checks and builds. Report the changes, results and source SHA.
 
-For quality-only adoption without Storybook, omit its ESLint preset and CI build step.
-
-| Module          | Source files                                                                                                             |
-| --------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| CI              | `.github/workflows/CI.yaml`, `package.json`                                                                              |
-| Quality scripts | `package.json`, `eslint.config.ts`, `knip.json`, `tsconfig.json`, `vite.config.ts`, `vite.shared.ts`, `vitest.config.ts` |
-| Git hooks       | `.simple-git-hooks.json`, `package.json`                                                                                 |
-| API generation  | `orval.config.ts`, `package.json`                                                                                        |
-| Storybook       | `.storybook/`, `vite.shared.ts`, `package.json`                                                                          |
-| Docker          | `Dockerfile`, `.dockerignore`                                                                                            |
+| Category             | Features                                                            |
+| -------------------- | ------------------------------------------------------------------- |
+| Architecture         | Project structure and coding guidelines                             |
+| Dependencies & stack | React, React Router, TypeScript, Vite, Tailwind CSS, TanStack Query |
+| CI/CD                | GitHub Actions workflows                                            |
+| Code quality & tests | ESLint, Prettier, Knip, Vitest, quality scripts                     |
+| `git` hooks          | Pre-commit formatting                                               |
+| API generation       | Orval client, hooks and types                                       |
+| Storybook            | Component stories, controls and accessibility checks                |
+| Docker               | Production image and build context                                  |

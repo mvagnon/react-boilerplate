@@ -1,12 +1,11 @@
-import { Welcome } from "~/features/welcome/ui/welcome";
-
 export function meta() {
-  return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
+  return [{ title: "React Boilerplate" }];
 }
 
 export default function Home() {
-  return <Welcome />;
+  return (
+    <main>
+      <h1>React Boilerplate</h1>
+    </main>
+  );
 }
